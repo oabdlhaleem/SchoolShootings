@@ -1,139 +1,39 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-  <meta charset=utf-8 />
-  <title>School Shootings</title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <link rel='icon' href='data/compass3.png' type='image/x-icon' />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-
-  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
+  <title>Greenhouse Emissions</title>
 
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
-
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 100%;
-      color: #3d3d3d;
-    }
-
-    h1 {
-      position: absolute;
-      margin-top: 0;
-      top: 10px;
-      left: 15px;
-      font-size: 1.5em;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 700;
-      letter-spacing: .04em;
-      padding: 10px 15px;
-      /* Add styles to match Leaflet UI elements */
-      background: rgba(256, 256, 256, .4);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      z-index: 800;
-      text-align: center;
-    }
-
-    h2 {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.2em;
-      letter-spacing: .04em;
-
-    }
-
     #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
       width: 100%;
+      height: calc(40vh);
     }
 
     #about {
-      position: absolute;
-      bottom: 20px;
-      left: 15px;
-      width: 280px;
-      padding: 0 15px;
-      /* Add styles to match Leaflet UI elements */
-      background: rgba(256, 256, 256, .6);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      z-index: 800;
+      max-height: calc(80vh);
+      overflow-y: scroll;
+    }
+
+    .legend circle {
+      fill: none;
+      stroke: #ccc;
+    }
+
+    .legend text {
+      fill: #777;
+      font: 10px sans-serif;
+      text-anchor: middle;
     }
 
     #ui {
       position: absolute;
-      top: 20px;
-      right: 15px;
-    }
-
-    #slider {
-      position: absolute;
-      top: 80px;
-      left: 15px;
-    }
-
-    p {
-      font-size: .9em;
-      line-height: 1.5em;
-    }
-
-    a {
-      color: #005daa;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Leaflet popup styles */
-    .leaflet-popup-content {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.1em;
-    }
-
-    /*
-		When browser is 900px high or less
-		make the font a little smaller.
-		 */
-    @media screen and (max-height: 400px) {
-
-      #about p,
-      #about h2 {
-        font-size: .6em;
-      }
-
-      h1 {
-        font-size: 1.2em;
-      }
-
-      #about h2 {
-        font-size: 1em;
-      }
-
-      .leaflet-popup-content {
-        font-family: 'Quicksand', sans-serif;
-        font-size: 0.9em;
-      }
-    }
-
-    /* Don't display info block when window is very small */
-    @media screen and (max-height: 200px) {
-
-      #about {
-        display: none;
-      }
+      right: 1em;
+      top: 1em;
     }
 
     .state {
@@ -167,7 +67,7 @@
     /* slider ui */
     .slider {
       -webkit-appearance: none;
-      width: 20%;
+      width: 25%;
       height: 15px;
       border-radius: 5px;
       background: #d3d3d3;
@@ -196,40 +96,73 @@
       cursor: pointer;
     }
 
+
+    /* Small devices (landscape phones, 576px and up) */
+    @media (min-width: 576px) {}
+
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+      #map {
+        height: calc(60vh);
+      }
+    }
+
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {
+
+      #map {
+        height: calc(80vh);
+      }
+    }
   </style>
 </head>
 
 <body>
-
   <div class="container-fluid">
+    <header class="row py-2 bg-dark text-success">
+      <div class="col mx-2">
+        <h1 class="h1">Generation Lockdown: School Shootings in the United States since Columbine</h1>
+      </div>
+    </header>
 
-  <h1>Generation Lockdown: School Shootings in the United States from Columbine to the Present</h1>
+    <section class="row bg-secondary ">
+      <div class="col-12 px-0">
+        <div id="map" class="bg-light position-relative">
 
-  <div id='map'></div>
+          <div id="ui" class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              All Other Attacks
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
+          </div>
 
-  <div id="ui" class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      All Other Attacks
-    </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
-  </div>
+          <!-- ui slider -->
+          <div class='slidecontainer'>
+            <input type='range' min="1" max="8" value="1" step="1" class="slider" id='slider'>
+          </div>
 
-  <!-- ui slider -->
-  <div class='slidecontainer'>
-    <input type='range' min="1" max="8" value="1" step="1" class="slider" id='slider'>
-  </div>
+          <!-- ui grade -->
+          <div id='grade' class='bg-white round px12 py12 relative'>
+            <h3 class='grade-lable txt-bold'></h3>
+          </div>
 
-  <!-- ui grade -->
-  <div id='grade' class='bg-white round px12 py12 relative'>
-    <h3 class='grade-lable txt-bold'></h3>
-  </div>
+        </div>
+      </div>
 
-  <section id="about">
-    <h2>Mass Shootings</h2>
-    <p>Over the last generation we've seen school shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to well discussed (but still tragic) feature of our society. But perhaps they are on the way out, most likely to be replaced by another form of violent expression.</p>
-    <p>Map authored by <a href="https://geography.as.uky.edu/users/oaab222">Osama Abdl-Haleem</a>.</p>
-  </section>
-</div> <!-- end .container-fluid -->
+    </section>
+    <footer class="row bg-dark text-white py-3">
+      <div class="col mx-2">
+        <ul class="list-unstyled">
+          <li>Map authored by <a href="https://oabdlhaleem.github.io/">Osama Abdl-Haleem</a></li>
+          <li>data sourced from
+            <a href="https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html">Cartographic Boundary Files</a>
+            and the
+            <a href="https://www.epa.gov/air-emissions-inventories/emissions-inventory-system-eis-gateway">EPA Air
+              Emissions Inventories</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div> <!-- end .container-fluid -->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
@@ -240,7 +173,6 @@
 
   <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://unpkg.com/topojson@3"></script>
-
   <script>
     // JavaScript
 
@@ -408,7 +340,6 @@
       }
     } // end filterByAttribute function
   </script>
-
 </body>
 
 </html>

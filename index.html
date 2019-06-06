@@ -13,7 +13,8 @@
 
   <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
 
-  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
 
   <style>
     body {
@@ -201,7 +202,6 @@
       background: #FFA500;
       cursor: pointer;
     }
-
   </style>
 </head>
 
@@ -241,9 +241,11 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
   </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
   <script src="https://d3js.org/d3.v5.js"></script>
@@ -351,7 +353,9 @@
       // applies event listeners to our polygons for user interaction
       schools.on('mouseover', (d, i, nodes) => { // when mousing over an element
           d3.select(nodes[i]).classed('hover', true); // select it, add a class name
-          tooltip.classed('invisible', false).html("<b>" + d.school_name + "</b>" + "<br>" + d.date + "<br>Killed: " + d.killed + "<br>Injured: " + d.injured + "<br><b>Total Casualties:</b> " + d.casualties) // make tooltip visible and update info
+          tooltip.classed('invisible', false).html("<b>" + d.school_name + "</b>" + "<br>" + d.date + "<br>Killed: " +
+              d.killed + "<br>Injured: " + d.injured + "<br><b>Total Casualties:</b> " + d.casualties
+              ) // make tooltip visible and update info
         })
         .on('mouseout', (d, i, nodes) => { // when mousing out of an element
           d3.select(nodes[i]).classed('hover', false) // remove the class from the polygon
@@ -361,7 +365,9 @@
       // applies event listeners to our polygons for user interaction
       otherShootings.on('mouseover', (d, i, nodes) => { // when mousing over an element
           d3.select(nodes[i]).classed('hover', true); // select it, add a class name
-          tooltip.classed('invisible', false).html("<b>" + d.CASE + "</b>" + "<br>" + d.DATE + "<br>Killed: " + d.FATALITIES + "<br>Injured: " + d.WOUNDED + "<br><b>Total Casualties:</b> " + d.TOTALVICTIMS) // make tooltip visible and update info
+          tooltip.classed('invisible', false).html("<b>" + d.CASE + "</b>" + "<br>" + d.DATE + "<br>Killed: " + d
+              .FATALITIES + "<br>Injured: " + d.WOUNDED + "<br><b>Total Casualties:</b> " + d.TOTALVICTIMS
+              ) // make tooltip visible and update info
         })
         .on('mouseout', (d, i, nodes) => { // when mousing out of an element
           d3.select(nodes[i]).classed('hover', false) // remove the class from the polygon
@@ -376,7 +382,7 @@
       var uniqueTypes = [];
 
       // loop through all features and push unique types to array
-      otherShootingsData.forEach(function(otherShootings) {
+      otherShootingsData.forEach(function (otherShootings) {
         if (!uniqueTypes.includes(otherShootings.LOCATIONTYPE)) {
           uniqueTypes.push(otherShootings.LOCATIONTYPE);
         }

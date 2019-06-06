@@ -25,7 +25,7 @@
     }
 
     h1 {
-      position: absolute;
+      position: relative;
       margin-top: 0;
       top: 10px;
       left: 15px;
@@ -58,7 +58,7 @@
     }
 
     #about {
-      position: absolute;
+      position: relative;
       bottom: 20px;
       left: 15px;
       width: 280px;
@@ -72,13 +72,19 @@
     }
 
     #ui {
-      position: absolute;
+      position: relative;
+      top: 20px;
+      right: 15px;
+    }
+
+    #button {
+      position: relative;
       top: 20px;
       right: 15px;
     }
 
     #slider {
-      position: absolute;
+      position: relative;
       top: 80px;
       left: 15px;
     }
@@ -184,7 +190,7 @@
       width: 25px;
       height: 25px;
       border-radius: 50%;
-      background: #4CAF50;
+      background: #FFA500;
       cursor: pointer;
     }
 
@@ -192,7 +198,7 @@
       width: 25px;
       height: 25px;
       border-radius: 50%;
-      background: #4CAF50;
+      background: #FFA500;
       cursor: pointer;
     }
 
@@ -207,8 +213,10 @@
 
   <div id='map'></div>
 
+  <button id="button" type="button" class="btn btn-warning">Show all</button>
+
   <div id="ui" class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       All Other Attacks
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>

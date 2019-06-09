@@ -31,13 +31,9 @@
       top: 1em;
     }
 
-    #locationType {
-
-    }
-
     .state {
       fill: maroon;
-      stroke: black;
+      stroke: #4C0707;
       stroke-width: .7;
     }
 
@@ -133,54 +129,42 @@
       <aside id="about" class="col-12 col-md-4 col-lg-3 text-dark py-2">
         <section>
           <h2 class="h2 text-dark">This is a map</h2>
-          <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to well discussed (but still tragic) feature of our society.</p>
+          <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
 
           <hr class="my-4">
 
           <div id="locationType">
             <h6 class="h6 text-dark">Location Type</h6>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
-              <label class="custom-control-label" for="customCheck1"> custom checkbox</label>
+              <input type="checkbox" class="custom-control-input" id="Airport" checked="">
+              <label class="custom-control-label" for="Airport">Airport</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="College" checked="">
+              <label class="custom-control-label" for="College">College</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="Military" checked="">
+              <label class="custom-control-label" for="Military">Military</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="Religious" checked="">
+              <label class="custom-control-label" for="Religious">Religious</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="School" checked="">
+              <label class="custom-control-label" for="School">School</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="Workplace" checked="">
+              <label class="custom-control-label" for="Workplace">Workplace</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="Other" checked="">
+              <label class="custom-control-label" for="Other">Other</label>
             </div>
           </div>
 
-          <hr class="my-4">
-
-          <div class="form-group">
-            <h6 class="h6 text-dark">Attack Type</h6>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck0" checked="">
-              <label class="custom-control-label" for="customCheck1"> custom checkbox</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-              <label class="custom-control-label" for="customCheck2"> custom checkbox</label>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div class="form-group">
-            <h6 class="h6 text-dark">Shooter Race</h6>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
-              <label class="custom-control-label" for="customCheck1"> custom checkbox</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-              <label class="custom-control-label" for="customCheck2"> custom checkbox</label>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div class="form-group">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-              <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-            </div>
-          </div>
         </section>
       </aside>
 
@@ -328,14 +312,16 @@
 
       changeSymbology(locations);
 
-      filterLocations(shootingsData, locations);
+      //  filterLocations(shootingsData, locations);
+
+      filterLocationType(svg, shootingsData, locations);
     } // end drawMap
 
     function changeSymbology(locations) {
       d3.select('#button').on('click', changeTheme);
 
       // define radius generator
-      const radius = d3.scaleSqrt().domain([3, 604]).range([0, 150]);
+      const radius = d3.scaleSqrt().domain([3, 604]).range([3, 150]);
 
       function changeTheme() {
         if (d3.select('#button').html() === 'Show by Casualties') {
@@ -343,18 +329,71 @@
           locations.attr('r', d => {
               return radius(d.casualties); // define the radius
             })
-          .attr('class', 'casualties') // give each circle a class name
-          .style('opacity', .7)
+            .attr('class', 'casualties') // give each circle a class name
+            .style('opacity', .7)
         } else {
           d3.select('#button').html('Show by Casualties');
           locations.attr('r', 5)
-          .attr('class', 'locations') // give each circle a class name
-          .style('opacity', 1)
+            .attr('class', 'locations') // give each circle a class name
+            .style('opacity', 1)
         }
       }
     }
 
-    function filterLocations(shootingsData, locations) {
+    // function filterLocations(shootingsData, locations) {
+    //   // array to hold select options
+    //   var uniqueTypes = [];
+    //
+    //   // loop through all features and push unique types to array
+    //   shootingsData.forEach(function(locations) {
+    //     if (!uniqueTypes.includes(locations.locationType)) {
+    //       uniqueTypes.push(locations.locationType);
+    //     }
+    //   });
+    //
+    //   // sort strings alphabetically
+    //   uniqueTypes.sort();
+    //
+    //   // add an all facilities to the beginning
+    //   uniqueTypes.unshift('All Attacks');
+    //
+    //   // select all the options (that don't exist yet)
+    //   d3.select('#ui .dropdown-menu').selectAll('a')
+    //     .data(uniqueTypes) // use array as data
+    //     .join('a') // append a new option element for each data item
+    //     .text(d => {
+    //       return d // use the item as text
+    //     })
+    //     .attr('value', d => {
+    //       return d // use the time as value attribute
+    //     })
+    //     .attr('href', '#')
+    //     .classed('dropdown-item', true)
+    //     .on('click', onchange); // when the user clicks call onchange function
+    //
+    //   function onchange() {
+    //     // get the currently selected value
+    //     let val = d3.select(this).attr('value');
+    //
+    //     // change the display property for each circle
+    //     locations.style('display', d => {
+    //       if (val === 'All Attacks') return 'inline';
+    //       if (d.locationType != val) return 'none';
+    //     });
+    //
+    //     d3.select('#ui > a').html(val); // update the UI with current val
+    //   }
+    // } // end filterLocations function
+
+    function filterLocationType(svg, shootingsData, locations) {
+
+      shootingsData.forEach(function(d) {
+        if(d.locationType === 'Workplace') {
+          locations.style('opacity', 1)
+        }
+      });
+      // And I initialize it at the beginning
+      update()
       // array to hold select options
       var uniqueTypes = [];
 
@@ -368,84 +407,33 @@
       // sort strings alphabetically
       uniqueTypes.sort();
 
-      // add an all facilities to the beginning
-      uniqueTypes.unshift('All Attacks');
+      // This function is gonna change the opacity and size of selected and unselected circles
+      function update() {
 
-      // select all the options (that don't exist yet)
-      d3.select('#ui .dropdown-menu').selectAll('a')
-        .data(uniqueTypes) // use array as data
-        .join('a') // append a new option element for each data item
-        .text(d => {
-          return d // use the item as text
+        // For each check box:
+        d3.selectAll(".custom-control-input").each(function(d) {
+          cb = d3.select(this);
+          grp = cb.property("id");
+
+          // console.log(grp);
+          // console.log(shootingsData.forEach(function(locations){locations}));
+
+          // // If the box is check, I show the group
+          // if (cb.property("checked")) {
+          //   // svg.selectAll("." + grp).transition().duration(1000).style("opacity", 1).attr("r", 5)
+          //   locations.style('opacity', 1);
+          //   // Otherwise I hide it
+          // } else {
+          //   locations.style('opacity', 0);
+          //   // svg.selectAll("." + grp).transition().duration(1000).style("opacity", 0).attr("r", 0)
+          // }
         })
-        .attr('value', d => {
-          return d // use the time as value attribute
-        })
-        .attr('href', '#')
-        .classed('dropdown-item', true)
-        .on('click', onchange); // when the user clicks call onchange function
-
-      function onchange() {
-        // get the currently selected value
-        let val = d3.select(this).attr('value');
-
-        // change the display property for each circle
-        locations.style('display', d => {
-          if (val === 'All Attacks') return 'inline';
-          if (d.locationType != val) return 'none';
-        });
-
-        d3.select('#ui > a').html(val); // update the UI with current val
       }
-    } // end filterLocations function
 
-    function filterLocationType(shootingsData, locations) {
-      // array to hold select options
-      var uniqueTypes = [];
+      // When a button change, I run the update function
+      d3.selectAll(".custom-control-input").on("change", update);
 
-      // loop through all features and push unique types to array
-      shootingsData.forEach(function(locations) {
-        if (!uniqueTypes.includes(locations.locationType)) {
-          uniqueTypes.push(locations.locationType);
-        }
-      });
-
-      // sort strings alphabetically
-      uniqueTypes.sort();
-
-      // add an all facilities to the beginning
-      uniqueTypes.unshift('All Attacks');
-
-      d3.select('#locationType').html('This Works');
-
-      // select all the options (that don't exist yet)
-      d3.select('#customCheck1').selectAll('a')
-        .data(uniqueTypes) // use array as data
-        .join('a') // append a new option element for each data item
-        .text(d => {
-          return d // use the item as text
-        })
-        .attr('value', d => {
-          return d // use the time as value attribute
-        })
-        .attr('href', '#')
-        .classed('dropdown-item', true)
-        .on('click', onchange); // when the user clicks call onchange function
-
-      function onchange() {
-        // get the currently selected value
-        let val = d3.select(this).attr('value');
-
-        // change the display property for each circle
-        locations.style('display', d => {
-          if (val === 'All Attacks') return 'inline';
-          if (d.locationType != val) return 'none';
-        });
-
-        d3.select('#ui > a').html(val); // update the UI with current val
-      }
     } // end filterLocationType()
-
   </script>
 </body>
 

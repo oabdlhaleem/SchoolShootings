@@ -7,7 +7,8 @@
 
   <title>Mass Shootings</title>
 
-  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
   <style>
     #map {
       width: 100%;
@@ -129,7 +130,9 @@
       <aside id="about" class="col-12 col-md-4 col-lg-3 text-dark py-2">
         <section>
           <h2 class="h2 text-dark">This is a map</h2>
-          <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
+          <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories
+            they have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.
+          </p>
 
           <hr class="my-4">
 
@@ -172,7 +175,8 @@
         <div id="map" class="bg-light position-relative">
 
           <div id="ui" class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               All Attacks
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
@@ -209,11 +213,14 @@
     </footer>
   </div> <!-- end .container-fluid -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
   </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
   <script src="https://d3js.org/d3.v5.js"></script>
@@ -276,7 +283,7 @@
       // add and style circle
       const locations = svg.append('g') // append new g element
         .selectAll('circle') // select all the circles
-        .data(shootingsData.sort(function(a, b) {
+        .data(shootingsData.sort(function (a, b) {
           return b.casualties - a.casualties; // place the large ones on the bottom
         })) // use the facility CSV data
         .join('circle') // join that data to circle elements
@@ -305,7 +312,9 @@
       // applies event listeners to our polygons for user interaction
       locations.on('mouseover', (d, i, nodes) => { // when mousing over an element
           d3.select(nodes[i]).classed('hover', true); // select it, add a class name
-          tooltip.classed('invisible', false).html("<b>" + d.case+"</b>" + "<br>" + d.date + "<br>Killed: " + d.killed + "<br>Injured: " + d.injured + "<br><b>Total Casualties:</b> " + d.casualties) // make tooltip visible and update info
+          tooltip.classed('invisible', false).html("<b>" + d.case+"</b>" + "<br>" + d.date + "<br>Killed: " + d
+            .killed + "<br>Injured: " + d.injured + "<br><b>Total Casualties:</b> " + d.casualties
+          ) // make tooltip visible and update info
         })
         .on('mouseout', (d, i, nodes) => { // when mousing out of an element
           d3.select(nodes[i]).classed('hover', false) // remove the class from the polygon
@@ -389,36 +398,29 @@
 
     function filterLocationType(locations) {
 
-      // Initialize update() at the beginning
-      update()
+      // For each checkbox:
+      d3.selectAll(".custom-control-input").on("change", function () {
 
-      function update() {
+        var checkBox = d3.select(this);
+        var checkBoxName = checkBox.property("id");
 
-        // For each checkbox:
-        d3.selectAll(".custom-control-input").each(function(d) {
-          var checkBox = d3.select(this);
-          var checkBoxName = checkBox.property("id");
+        if (checkBox.property("checked")) {
+          locations.style('opacity', function (d) {
+            // apply a conditional test
+            if (d.locationType === checkBoxName) {
+              return 1; // return attribute value for dots
+            }
+          })
+        } else {
+          locations.style('opacity', function (d) {
+            // apply a conditional test
+            if (d.locationType === checkBoxName) {
+              return 0; // return attribute value
+            }
+          })
+        }
 
-          if (checkBox.property("checked")) {
-            locations.style('opacity', function(d) {
-              // apply a conditional test
-              if (d.locationType === checkBoxName) {
-                return 1; // return attribute value for dots
-              }
-            })
-          } else {
-            locations.style('opacity', function(d) {
-              // apply a conditional test
-              if (d.locationType === checkBoxName) {
-                return 0; // return attribute value
-              }
-            })
-          }
-        })
-      } //end update() function
-
-      // When a button changes, run the update function
-      d3.selectAll(".custom-control-input").on("change", update);
+      }); // end selectAll .custom-control-input
 
     } // end filterLocationType()
   </script>

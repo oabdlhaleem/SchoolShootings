@@ -276,7 +276,9 @@
       // add and style circle
       const locations = svg.append('g') // append new g element
         .selectAll('circle') // select all the circles
-        .data(shootingsData) // use the facility CSV data
+        .data(shootingsData.sort(function(a, b) {
+          return b.casualties - a.casualties; // place the large ones on the bottom
+        })) // use the facility CSV data
         .join('circle') // join that data to circle elements
         .attr('cx', d => { // feed the long/lat to the projection generator
           d.position = projection([d.long, d.lat]); // create a new data attribute
@@ -387,11 +389,6 @@
 
     function filterLocationType(svg, shootingsData, locations) {
 
-      shootingsData.forEach(function(d) {
-        if(d.locationType === 'Workplace') {
-          locations.style('opacity', 1)
-        }
-      });
       // And I initialize it at the beginning
       update()
       // array to hold select options
@@ -410,11 +407,26 @@
       // This function is gonna change the opacity and size of selected and unselected circles
       function update() {
 
-        // For each check box:
+        // For each checkbox:
         d3.selectAll(".custom-control-input").each(function(d) {
-          cb = d3.select(this);
-          grp = cb.property("id");
+          var checkBox = d3.select(this);
+          var checkBoxName = checkBox.property("id");
 
+          if (checkBox.property("checked")) {
+            locations.style('opacity', function(d) {
+              // apply a conditional test
+              if (d.locationType === checkBoxName) {
+                  return 1; // return attribute value for dots
+              }
+            })
+          } else {
+            locations.style('opacity', function(d) {
+              // apply a conditional test
+              if (d.locationType === checkBoxName) {
+                return 0; // return attribute value
+              }
+            })
+          }
           // console.log(grp);
           // console.log(shootingsData.forEach(function(locations){locations}));
 

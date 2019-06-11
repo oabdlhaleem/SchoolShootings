@@ -316,7 +316,7 @@
 
       //  filterLocations(shootingsData, locations);
 
-      filterLocationType(svg, shootingsData, locations);
+      filterLocationType(locations);
     } // end drawMap
 
     function changeSymbology(locations) {
@@ -387,24 +387,11 @@
     //   }
     // } // end filterLocations function
 
-    function filterLocationType(svg, shootingsData, locations) {
+    function filterLocationType(locations) {
 
-      // And I initialize it at the beginning
+      // Initialize update() at the beginning
       update()
-      // array to hold select options
-      var uniqueTypes = [];
 
-      // loop through all features and push unique types to array
-      shootingsData.forEach(function(locations) {
-        if (!uniqueTypes.includes(locations.locationType)) {
-          uniqueTypes.push(locations.locationType);
-        }
-      });
-
-      // sort strings alphabetically
-      uniqueTypes.sort();
-
-      // This function is gonna change the opacity and size of selected and unselected circles
       function update() {
 
         // For each checkbox:
@@ -416,7 +403,7 @@
             locations.style('opacity', function(d) {
               // apply a conditional test
               if (d.locationType === checkBoxName) {
-                  return 1; // return attribute value for dots
+                return 1; // return attribute value for dots
               }
             })
           } else {
@@ -427,22 +414,10 @@
               }
             })
           }
-          // console.log(grp);
-          // console.log(shootingsData.forEach(function(locations){locations}));
-
-          // // If the box is check, I show the group
-          // if (cb.property("checked")) {
-          //   // svg.selectAll("." + grp).transition().duration(1000).style("opacity", 1).attr("r", 5)
-          //   locations.style('opacity', 1);
-          //   // Otherwise I hide it
-          // } else {
-          //   locations.style('opacity', 0);
-          //   // svg.selectAll("." + grp).transition().duration(1000).style("opacity", 0).attr("r", 0)
-          // }
         })
       }
 
-      // When a button change, I run the update function
+      // When a button changes, run the update function
       d3.selectAll(".custom-control-input").on("change", update);
 
     } // end filterLocationType()

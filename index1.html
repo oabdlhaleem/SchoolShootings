@@ -31,6 +31,12 @@
       top: 1em;
     }
 
+    #slider {
+      position: absolute;
+      right: 1em;
+      bottom: 1em;
+    }
+
     .state {
       fill: maroon;
       stroke: #4C0707;
@@ -61,7 +67,7 @@
 
     /* slider ui */
     .slider {
-      -webkit-appearance: none;
+      /* -webkit-appearance: none; */
       width: 25%;
       height: 15px;
       border-radius: 5px;
@@ -77,15 +83,13 @@
       opacity: 1;
     }
 
-    .slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
+    /* .slider-handle {
       width: 25px;
       height: 25px;
       border-radius: 50%;
       background: #FFA500;
       cursor: pointer;
-    }
+    } */
 
     /* .slider::-moz-range-thumb {
       width: 25px;
@@ -171,17 +175,20 @@
       <div class="col-12 col-md-8 col-lg-9 px-0">
         <div id="map" class="bg-light position-relative">
 
-          <div id="ui" class="dropdown">
+          <!-- <div id="ui" class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               All Attacks
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
-          </div>
+          </div> -->
 
           <!-- ui slider -->
-          <div class='slidecontainer'>
-            <input type='range' min="1" max="8" value="1" step="1" class="slider" id='slider'>
+          <div class='slidecontainer px-2 py-3'>
+            <input id="ex6" type="text" data-slider-min="1982" data-slider-max="2019" data-slider-step="1" data-slider-value="1982" />
+            <span id="ex6CurrentSliderValLabel">Year: <span id="ex6SliderVal">1982</span></span>
           </div>
+
+
 
           <!-- ui grade -->
           <div id='grade' class='bg-white round px12 py12 relative'>
@@ -215,11 +222,18 @@
   </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/bootstrap-slider.min.js" integrity="sha256-nviKEC91moGfyFMMzT31WyNxuAvIIgOSkSGi7K6U7EU=" crossorigin="anonymous"></script>
 
   <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://unpkg.com/topojson@3"></script>
   <script>
     // JavaScript
+
+    // Without JQuery
+var slider = new Slider("#ex6");
+slider.on("slide", function(sliderValue) {
+	document.getElementById("ex6SliderVal").textContent = sliderValue;
+});
 
     // asynchronous calls to data files
     const statesJson = d3.json('data/us-states.json');
@@ -316,6 +330,8 @@
 
       //  filterLocations(shootingsData, locations);
 
+      slideYear(shootingsData, locations);
+
       filterLocationType(locations);
     } // end drawMap
 
@@ -395,9 +411,11 @@
       function update() {
 
         // For each checkbox:
-        d3.selectAll(".custom-control-input").each(function(d) {
+        d3.selectAll(".custom-control-input").on("change", function() {
+
           var checkBox = d3.select(this);
           var checkBoxName = checkBox.property("id");
+          console.log(checkBoxName)
 
           if (checkBox.property("checked")) {
             locations.style('opacity', function(d) {
@@ -414,13 +432,17 @@
               }
             })
           }
-        })
-      } //end update() function
-
-      // When a button changes, run the update function
-      d3.selectAll(".custom-control-input").on("change", update);
-
+        }); // end selectAll .custom-control-input
+      }
     } // end filterLocationType()
+
+    function slideYear(shootingsData, locations) {
+      d3.select(".slider").on("change", changeYear);
+
+      function changeYear() {
+        d3.select(".yearLable").html(slidecontainer)
+      }
+    } // end slideYear()
   </script>
 </body>
 

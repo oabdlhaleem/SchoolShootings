@@ -362,7 +362,7 @@
           d3.select('#button').html('Show by Casualties');
           locations.attr('r', 5)
             .attr('class', 'locations') // give each circle a class name
-            .style('opacity', 1)
+            .style('opacity', update)
         }
       }
     }
@@ -419,30 +419,37 @@
 
       function update() {
 
+        var affectedLocations = [];
+
         // For each checkbox:
         d3.selectAll(".custom-control-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions
 
           var checkBox = d3.select(this); //get the check box that was changed
+          console.log(checkBox)
+          console.log(this)
           var checkBoxName = checkBox.property("id"); //get the name of that check box
           console.log(checkBoxName)
 
-          if (checkBox.property("checked")) { // see if that box is checked
+          if (checkBox.property("checked") === false) { // see if that box is checked
+            console.log("Accessed")
             locations.style('opacity', function(d) { //if yes execute opacity function
-              // apply a conditional test
-              if (d.locationType === checkBoxName) { //find all locations with that type
-                return 1; // make visible
-              }
-            })
-          } else { //if that box is not checked
-            locations.style('opacity', function(d) { //execute opacity function
               // apply a conditional test
               if (d.locationType === checkBoxName) { //find all locations with that type
                 return 0; // make invisible
               }
             })
+          } else { //if that box is not checked
+            console.log("!BREACH!")
+            locations.style('opacity', function(d) { //execute opacity function
+
+              // apply a conditional test
+              if (d.locationType === checkBoxName) { //find all locations with that type
+                return 1; // make visible
+              }
+            })
           }
         }); // end selectAll .custom-control-input
-      }
+      } // end update()
     } // end filterLocationType()
 
     function slideYear(shootingsData, locations) {

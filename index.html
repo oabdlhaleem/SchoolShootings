@@ -145,37 +145,45 @@
 
           <hr class="my-4">
 
-          <div id="locationType">
+          <fieldset class="form-group">
             <h6 class="h6 text-dark">Location Type</h6>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="Airport" checked="">
-              <label class="custom-control-label" for="Airport">Airport</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="College" id="College" value="College" checked="">
+                College
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="College" checked="">
-              <label class="custom-control-label" for="College">College</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="Military" id="Military" value="Military">
+                Military
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="Military" checked="">
-              <label class="custom-control-label" for="Military">Military</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="Religious" id="Religious" value="Religious">
+                Religious
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="Religious" checked="">
-              <label class="custom-control-label" for="Religious">Religious</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="School" id="School" value="School">
+                School
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="School" checked="">
-              <label class="custom-control-label" for="School">School</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="Workplace" id="Workplace" value="Workplace">
+                Workplace
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="Workplace" checked="">
-              <label class="custom-control-label" for="Workplace">Workplace</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="Other" id="Other" value="Other">
+                Other
+              </label>
             </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="Other" checked="">
-              <label class="custom-control-label" for="Other">Other</label>
-            </div>
-          </div>
+          </fieldset>
 
         </section>
       </aside>
@@ -419,27 +427,26 @@
 
       function update() {
 
-        var affectedLocations = [];
-
         // For each checkbox:
-        d3.selectAll(".custom-control-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions
+        d3.selectAll(".form-check-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions
 
           var checkBox = d3.select(this); //get the check box that was changed
-          console.log(checkBox)
-          console.log(this)
-          var checkBoxName = checkBox.property("id"); //get the name of that check box
-          console.log(checkBoxName)
 
-          if (checkBox.property("checked") === false) { // see if that box is checked
-            console.log("Accessed")
+          var checkBoxName = checkBox.property("id"); //get the name of that check box
+
+          if (checkBox.property("checked")) { // see if that box is checked
+
             locations.style('opacity', function(d) { //if yes execute opacity function
               // apply a conditional test
               if (d.locationType === checkBoxName) { //find all locations with that type
-                return 0; // make invisible
+                return 1; // make invisible
+              } else {
+                checkBox.property("checked", false);
+                return 0;
               }
             })
           } else { //if that box is not checked
-            console.log("!BREACH!")
+
             locations.style('opacity', function(d) { //execute opacity function
 
               // apply a conditional test

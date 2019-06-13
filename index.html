@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Mass Shootings</title>
+  <title>US Mass Shootings</title>
 
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
+
   <style>
     #map {
       width: 100%;
@@ -17,6 +18,10 @@
     #about {
       max-height: calc(80vh);
       overflow-y: scroll;
+    }
+
+    h2 {
+      color: var(--yellow);
     }
 /*
     #ui {
@@ -69,7 +74,7 @@
     .slider {
       -webkit-appearance: none;
       position: relative;
-      width: 25%;
+      width: 15%;
       height: 15px;
       border-radius: 5px;
       background: #d3d3d3;
@@ -130,9 +135,9 @@
 
 <body>
   <div class="container-fluid">
-    <header class="row py-2 bg-warning text-white">
+    <header class="row py-2 bg-danger text-white">
       <div class="col mx-2">
-        <h1 class="h2">Generation Lockdown: A Map of Mass Shootings</h1>
+        <h1 class="h2">Generation Lockdown: A Map of Mass Shootings in America</h1>
       </div>
     </header>
 
@@ -140,50 +145,161 @@
 
       <aside id="about" class="col-12 col-md-4 col-lg-3 text-dark py-2">
         <section>
-          <h2 class="h3 text-dark">This is a map</h2>
+          <h3 class="h4 text-dark">Understanding Mass Shootings</h3>
           <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
+          <p>Over the last decade and a half the terminology of mass shootings has been forced to developed greater sophistication. There are slightly different criteria for an attack to be labled a mass shooting. One common view is that <b>any attack that results in three or more casualties constitutes a mass shooting</b>. The term casualties, though commonly used to mean those killed, refers to both wounded and deceased victims.</p>
+          <p>Following these standards this map depicts all mass shootings in the United States from 1982 to early 2019.</p>
 
           <hr class="my-4">
 
-          <fieldset class="form-group">
+          <div id="locationType">
             <h6 class="h6 text-dark">Location Type</h6>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="College" id="College" value="College" checked="">
-                College
+                <input type="radio" class="form-check-input" name="radio" id="Show All" value="locationType" checked="">
+                <p class="h6 text-dark">Show All</p>
               </label>
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="Military" id="Military" value="Military">
-                Military
+                <input type="radio" class="form-check-input" name="radio" id="College" value="locationType">
+                <p class="h6 text-primary">College</p>
               </label>
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="Religious" id="Religious" value="Religious">
-                Religious
+                <input type="radio" class="form-check-input" name="radio" id="Military" value="locationType">
+                <p class="h6 text-dark">Military</p>
               </label>
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="School" id="School" value="School">
-                School
+                <input type="radio" class="form-check-input" name="radio" id="Religious" value="locationType">
+                <p class="h6 text-success">Religious</p>
               </label>
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="Workplace" id="Workplace" value="Workplace">
-                Workplace
+                <input type="radio" class="form-check-input" name="radio" id="School" value="locationType">
+                <p class="h6 text-dark">School</p>
               </label>
             </div>
             <div class="form-check">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="Other" id="Other" value="Other">
+                <input type="radio" class="form-check-input" name="radio" id="Workplace" value="locationType">
+                <p class="h6 text-warning">Workplace</p>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Other" value="locationType">
+                <p class="h6 text-danger">Other</p>
+              </label>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div id="attackType">
+            <h6 class="h6 text-dark">Attack Type</h6>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Show All" value="shootingType">
+                Show All
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Mass" value="shootingType">
+                Mass: <i>Attack resulting in 3 or more casualties</i>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Spree" value="shootingType">
+                Spree: <i>Attack occuring in 2 or more locations</i>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Accidental" value="shootingType">
+                Accidental
+              </label>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div id="Race">
+            <h6 class="h6 text-dark">Attacker Race</h6>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Show All" value="race">
+                Show All
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="White" value="race">
+                White
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Black" value="race">
+                Black
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Asian" value="race">
+                Asian
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="American Indian" value="race">
+                American Indian
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Latino" value="race">
+                Latino
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Other" value="race">
                 Other
               </label>
             </div>
-          </fieldset>
+          </div>
+
+          <hr class="my-4">
+
+          <div id="gender">
+            <h6 class="h6 text-dark">Gender</h6>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Show All" value="gender">
+                Show Both
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Male" value="gender">
+                Male
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="radio" id="Female" value="gender">
+                Female
+              </label>
+            </div>
+          </div>
+
 
         </section>
       </aside>
@@ -212,22 +328,19 @@
             </div> -->
           </div>
 
-          <button id='button' type="button" class="btn btn-warning">Show by Casualties</button>
+          <button id='button' type="button" class="btn btn-danger">Show by Casualties</button>
 
         </div>
       </div>
 
 
     </section>
-    <footer class="row bg-warning text-white py-3">
+    <footer class="row bg-info text-white py-3">
       <div class="col mx-2">
         <ul class="list-unstyled">
           <li>Map authored by <a href="https://oabdlhaleem.github.io/">Osama Abdl-Haleem</a></li>
           <li>data sourced from
-            <a href="https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html">Cartographic Boundary Files</a>
-            and the
-            <a href="https://www.epa.gov/air-emissions-inventories/emissions-inventory-system-eis-gateway">EPA Air
-              Emissions Inventories</a></li>
+            <a href="https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/">motherjones.com</a>
         </ul>
       </div>
     </footer>
@@ -315,7 +428,7 @@
         .attr('cy', d => {
           return d.position[1]; // position the y
         })
-        .attr('r', 5)
+        .attr('r', 7)
         .attr('class', 'locations') // give each circle a class name
         .style('fill', d => {
           return color(d.locationType);
@@ -345,11 +458,10 @@
 
       changeSymbology(locations);
 
-      //  filterLocations(shootingsData, locations);
+      slideYear(locations);
 
-      slideYear(shootingsData, locations);
+      update(locations);
 
-      filterLocationType(locations);
     } // end drawMap
 
     function changeSymbology(locations) {
@@ -368,98 +480,63 @@
             .style('opacity', .7)
         } else {
           d3.select('#button').html('Show by Casualties');
-          locations.attr('r', 5)
+          locations.attr('r', 7)
             .attr('class', 'locations') // give each circle a class name
-            .style('opacity', update)
+            .style('opacity', 1)
         }
-      }
-    }
+      } // end changeTheme()
+    } //end changeSymbology()
 
-    // function filterLocations(shootingsData, locations) {
-    //   // array to hold select options
-    //   var uniqueTypes = [];
-    //
-    //   // loop through all features and push unique types to array
-    //   shootingsData.forEach(function(locations) {
-    //     if (!uniqueTypes.includes(locations.locationType)) {
-    //       uniqueTypes.push(locations.locationType);
-    //     }
-    //   });
-    //
-    //   // sort strings alphabetically
-    //   uniqueTypes.sort();
-    //
-    //   // add an all facilities to the beginning
-    //   uniqueTypes.unshift('All Attacks');
-    //
-    //   // select all the options (that don't exist yet)
-    //   d3.select('#ui .dropdown-menu').selectAll('a')
-    //     .data(uniqueTypes) // use array as data
-    //     .join('a') // append a new option element for each data item
-    //     .text(d => {
-    //       return d // use the item as text
-    //     })
-    //     .attr('value', d => {
-    //       return d // use the time as value attribute
-    //     })
-    //     .attr('href', '#')
-    //     .classed('dropdown-item', true)
-    //     .on('click', onchange); // when the user clicks call onchange function
-    //
-    //   function onchange() {
-    //     // get the currently selected value
-    //     let val = d3.select(this).attr('value');
-    //
-    //     // change the display property for each circle
-    //     locations.style('display', d => {
-    //       if (val === 'All Attacks') return 'inline';
-    //       if (d.locationType != val) return 'none';
-    //     });
-    //
-    //     d3.select('#ui > a').html(val); // update the UI with current val
-    //   }
-    // } // end filterLocations function
+    function update(locations) {
 
-    function filterLocationType(locations) {
+      // For each checkbox:
+      d3.selectAll(".form-check-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions
 
-      // Initialize update() at the beginning
-      update()
+        var checkBox = d3.select(this); //get the check box that was changed
 
-      function update() {
+        var checkBoxName = checkBox.property("id"); //get the name of that check box
 
-        // For each checkbox:
-        d3.selectAll(".form-check-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions
+        var checkBoxValue = checkBox.property("value");
 
-          var checkBox = d3.select(this); //get the check box that was changed
-
-          var checkBoxName = checkBox.property("id"); //get the name of that check box
-
+        if (checkBoxName === "Show All") {
+          locations.style('opacity', 1)
+        } else {
           if (checkBox.property("checked")) { // see if that box is checked
 
             locations.style('opacity', function(d) { //if yes execute opacity function
               // apply a conditional test
-              if (d.locationType === checkBoxName) { //find all locations with that type
-                return 1; // make invisible
-              } else {
-                checkBox.property("checked", false);
-                return 0;
-              }
-            })
-          } else { //if that box is not checked
-
-            locations.style('opacity', function(d) { //execute opacity function
-
-              // apply a conditional test
-              if (d.locationType === checkBoxName) { //find all locations with that type
-                return 1; // make visible
+              if (checkBoxValue === 'locationType') {
+                if (d.locationType === checkBoxName) { //find all locations with that type
+                  return 1; // make visible
+                } else {
+                  return 0; // make all others invisible
+                }
+              } else if (checkBoxValue === 'shootingType') {
+                if (d.shootingType === checkBoxName) { //find all locations with that type
+                  return 1; // make visible
+                } else {
+                  return 0; // make all others invisible
+                }
+              } else if (checkBoxValue === 'race') {
+                if (d.race === checkBoxName) { //find all locations with that type
+                  return 1; // make visible
+                } else {
+                  return 0; // make all others invisible
+                }
+              } else if (checkBoxValue === 'gender') {
+                if (d.gender === checkBoxName) { //find all locations with that type
+                  return 1; // make visible
+                } else {
+                  return 0; // make all others invisible
+                }
               }
             })
           }
-        }); // end selectAll .custom-control-input
-      } // end update()
-    } // end filterLocationType()
+        }
+      }); // end selectAll .custom-control-input
+    } // end update()
 
-    function slideYear(shootingsData, locations) {
+    function slideYear(locations) {
 
       // add slider 1
       var slider = new Slider("#ex6");

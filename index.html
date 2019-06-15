@@ -20,20 +20,15 @@
       overflow-y: scroll;
     }
 
-    h2 {
-      color: var(--yellow);
-    }
-/*
     #ui {
-      position: absolute;
-      right: 1em;
-      top: 4em;
-    } */
+      position: relative;
+      left: .95em;
+    }
 
     #button {
       position: absolute;
       right: 1em;
-      top: 1em;
+      /* top: 1em; */
     }
 
     /* #slider {
@@ -43,8 +38,8 @@
     } */
 
     .state {
-      fill: maroon;
-      stroke: #4C0707;
+      fill: slategray;
+      stroke: darkgray;
       stroke-width: .7;
     }
 
@@ -74,8 +69,8 @@
     .slider {
       -webkit-appearance: none;
       position: relative;
-      width: 15%;
-      height: 15px;
+      width: 75%;
+      height: 10px;
       border-radius: 5px;
       background: #d3d3d3;
       outline: none;
@@ -96,13 +91,13 @@
 	color: #726204;
 } */
 
-    /* .slider-handle {
-      width: 25px;
-      height: 25px;
+    .slider-handle {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: #FFA500;
+      background: red;
       cursor: pointer;
-    } */
+    }
 
     /* .slider::-moz-range-thumb {
       width: 25px;
@@ -143,203 +138,206 @@
 
     <section class="row bg-secondary ">
 
-      <aside id="about" class="col-12 col-md-4 col-lg-3 text-dark py-2">
+      <aside id="about" class="col-12 col-md-2 col-lg-3 text-dark py-2">
         <section>
           <h3 class="h4 text-dark">Understanding Mass Shootings</h3>
-          <p>Over the last generation we've seen mass shootings become a thing. Within the span of most of our memories they have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
-          <p>Over the last decade and a half the terminology of mass shootings has been forced to developed greater sophistication. There are slightly different criteria for an attack to be labled a mass shooting. One common view is that <b>any attack that results in three or more casualties constitutes a mass shooting</b>. The term casualties, though commonly used to mean those killed, refers to both wounded and deceased victims.</p>
+          <p>Within the span of most of our memories mass shootings have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
+          <p>Over the last two decades the terminology of mass shootings has developed greater sophistication. The standard definition of <i>"mass shooting"</i> is <b>any attack that results in three or more casualties</b>, where <i>"casualties"</i> <b>refers to both wounded and deceased victims.</b></p>
           <p>Following these standards this map depicts all mass shootings in the United States from 1982 to early 2019.</p>
-
-          <hr class="my-4">
-
-          <div id="locationType">
-            <h6 class="h6 text-dark">Location Type</h6>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Show All" value="locationType" checked="">
-                <p class="h6 text-dark">Show All</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="College" value="locationType">
-                <p class="h6 text-primary">College</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Military" value="locationType">
-                <p class="h6 text-dark">Military</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Religious" value="locationType">
-                <p class="h6 text-success">Religious</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="School" value="locationType">
-                <p class="h6 text-dark">School</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Workplace" value="locationType">
-                <p class="h6 text-warning">Workplace</p>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Other" value="locationType">
-                <p class="h6 text-danger">Other</p>
-              </label>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div id="attackType">
-            <h6 class="h6 text-dark">Attack Type</h6>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Show All" value="shootingType">
-                Show All
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Mass" value="shootingType">
-                Mass: <i>Attack resulting in 3 or more casualties</i>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Spree" value="shootingType">
-                Spree: <i>Attack occuring in 2 or more locations</i>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Accidental" value="shootingType">
-                Accidental
-              </label>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div id="Race">
-            <h6 class="h6 text-dark">Attacker Race</h6>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Show All" value="race">
-                Show All
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="White" value="race">
-                White
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Black" value="race">
-                Black
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Asian" value="race">
-                Asian
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="American Indian" value="race">
-                American Indian
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Latino" value="race">
-                Latino
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Other" value="race">
-                Other
-              </label>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div id="gender">
-            <h6 class="h6 text-dark">Gender</h6>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Show All" value="gender">
-                Show Both
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Male" value="gender">
-                Male
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="radio" id="Female" value="gender">
-                Female
-              </label>
-            </div>
-          </div>
-
 
         </section>
       </aside>
 
-      <div class="col-12 col-md-8 col-lg-9 px-0">
-        <div id="map" class="bg-light position-relative">
+      <div class="col-12 col-md-8 col-lg-6 px-0">
+        <div id="map" class="bg-white position-relative"></div>
+        <div id="ui" class="row bg-white position-relative">
 
-          <!-- <div id="ui" class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              All Attacks
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
-          </div> -->
+            <!-- ui slider -->
+            <div class="col-4">
+              <!-- <div class='slidecontainer position-relative px-2 py-4'> -->
 
-          <!-- ui slider -->
-          <div class='slidecontainer position-relative px-2 py-3'>
-            <input id="ex6" type="range" data-slider-min="1982" data-slider-max="2019" data-slider-step="1" data-slider-value="1982" />
-            <p id="ex6CurrentSliderValLabel">All Attacks up to: <span id="ex6SliderVal">1982</span></p>
+              <input id="slider1" type="range" data-slider-min="1982" data-slider-max="2019" data-slider-step="1" data-slider-value="2019" />
+              <p id="ex6CurrentSliderValLabel">All Attacks up to: <span id="ex6SliderVal">1982</span></p>
 
-            <input id="ex7" type="range" data-slider-min="1982" data-slider-max="2019" data-slider-step="1" data-slider-value="1982" />
-            <p id="ex7CurrentSliderValLabel">Attacks in: <span id="ex7SliderVal">1982</span></p>
+            </div>
+            <div class="col-4">
 
-            <!-- <div>
-              <input type="range" id="ex6" name="volume" min="1982" max="2019" data-slider-step="1" data-slider-value="1982" />
-              <br><b id="ex6CurrentSliderValLabel">Year: <span id="ex6SliderVal">1982</span></b>
-            </div> -->
-          </div>
+              <input id="slider2" type="range" data-slider-min="1982" data-slider-max="2019" data-slider-step="1" data-slider-value="2019" />
+              <p id="ex7CurrentSliderValLabel">Attacks in: <span id="ex7SliderVal">1982</span></p>
 
-          <button id='button' type="button" class="btn btn-danger">Show by Casualties</button>
+              <!-- </div> -->
+            </div>
+            <div class="col-4">
+              <button id='button' type="button" class="btn btn-danger">Show by Casualties</button>
+            </div>
 
         </div>
+
       </div>
+
+
+      <aside id="about" class="col-12 col-md-2 col-lg-3 text-dark py-2">
+        <h3 class="h4 text-dark">Filtering the Data</h3>
+
+        <hr class="my-3">
+
+        <div id="locationType">
+          <h6 class="h6 text-dark">Location Type</h6>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Show All" value="locationType" checked="">
+              <p class="h6 text-dark">Show All</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="College" value="locationType">
+              <p class="h6 text-primary">College</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Military" value="locationType">
+              <p class="h6 text-dark">Military</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Religious" value="locationType">
+              <p class="h6 text-success">Religious</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="School" value="locationType">
+              <p class="h6 text-dark">School</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Workplace" value="locationType">
+              <p class="h6 text-warning">Workplace</p>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Other" value="locationType">
+              <p class="h6 text-danger">Other</p>
+            </label>
+          </div>
+        </div>
+
+        <hr class="my-2">
+
+        <div id="attackType">
+          <h6 class="h6 text-dark">Attack Type</h6>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Show All" value="shootingType">
+              Show All
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Mass" value="shootingType">
+              Mass: <i>Attack resulting in 3 or more casualties</i>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Spree" value="shootingType">
+              Spree: <i>Attack occuring in 2 or more locations</i>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Accidental" value="shootingType">
+              Accidental
+            </label>
+          </div>
+        </div>
+
+        <hr class="my-2">
+
+        <div id="Race">
+          <h6 class="h6 text-dark">Attacker Race</h6>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Show All" value="race">
+              Show All
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="White" value="race">
+              White
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Black" value="race">
+              Black
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Asian" value="race">
+              Asian
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="American Indian" value="race">
+              American Indian
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Latino" value="race">
+              Latino
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Other" value="race">
+              Other
+            </label>
+          </div>
+        </div>
+
+        <hr class="my-2">
+
+        <div id="gender">
+          <h6 class="h6 text-dark">Gender</h6>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Show All" value="gender">
+              Show Both
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Male" value="gender">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="radio" id="Female" value="gender">
+              Female
+            </label>
+          </div>
+        </div>
+
+
+      </aside>
 
 
     </section>
     <footer class="row bg-info text-white py-3">
       <div class="col mx-2">
         <ul class="list-unstyled">
-          <li>Map authored by <a href="https://oabdlhaleem.github.io/">Osama Abdl-Haleem</a></li>
-          <li>data sourced from
+          <p>Map authored by <a href="https://oabdlhaleem.github.io/">Osama Abdl-Haleem</a> with data sourced from
             <a href="https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/">motherjones.com</a>
         </ul>
       </div>
@@ -539,7 +537,7 @@
     function slideYear(locations) {
 
       // add slider 1
-      var slider = new Slider("#ex6");
+      var slider = new Slider("#slider1");
       slider.on("slide", function(sliderValue) {
 
         document.getElementById("ex6SliderVal").textContent = sliderValue;
@@ -554,7 +552,7 @@
       });
 
       // add slider 2
-      var otherSlider = new Slider("#ex7");
+      var otherSlider = new Slider("#slider2");
       otherSlider.on("slide", function(sliderValue) {
 
         document.getElementById("ex7SliderVal").textContent = sliderValue;

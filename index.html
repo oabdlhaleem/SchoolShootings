@@ -10,6 +10,10 @@
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">
 
   <style>
+
+    h2 {
+
+    }
     #map {
       width: 100%;
       height: calc(40vh);
@@ -22,20 +26,20 @@
 
     #ui {
       position: relative;
-      left: .95em;
+      /* left: .95em; */
     }
 
     #button {
-      position: absolute;
-      right: 1em;
-      /* top: 1em; */
-    }
-
-    /* #slider {
       position: relative;
       right: 1em;
-      bottom: 1em;
-    } */
+
+    }
+
+    #slider {
+      position: relative;
+      left: 5em;
+      top: 6em;
+    }
 
     .state {
       fill: slategray;
@@ -132,15 +136,15 @@
   <div class="container-fluid">
     <header class="row py-2 bg-danger text-white">
       <div class="col mx-2">
-        <h1 class="h2">Generation Lockdown: A Map of Mass Shootings in America</h1>
+        <h2 class="h2">Generation Lockdown: A Map of Mass Shootings in America</h2>
       </div>
     </header>
 
     <section class="row bg-secondary ">
 
-      <aside id="about" class="col-12 col-md-2 col-lg-3 text-dark py-2">
+      <aside id="about" class="col-12 col-md-3 col-lg-3 text-dark py-2">
         <section>
-          <h3 class="h4 text-dark">Understanding Mass Shootings</h3>
+          <h4 class="h4 text-dark">Understanding Mass Shootings</h4>
           <p>Within the span of most of our memories mass shootings have gone from an unspeakable tragedy to a well discussed (but still tragic) feature of our society.</p>
           <p>Over the last two decades the terminology of mass shootings has developed greater sophistication. The standard definition of <i>"mass shooting"</i> is <b>any attack that results in three or more casualties</b>, where <i>"casualties"</i> <b>refers to both wounded and deceased victims.</b></p>
           <p>Following these standards this map depicts all mass shootings in the United States from 1982 to early 2019.</p>
@@ -148,9 +152,9 @@
         </section>
       </aside>
 
-      <div class="col-12 col-md-8 col-lg-6 px-0">
+      <div class="col-12 col-md-6 col-lg-6 px-0">
         <div id="map" class="bg-white position-relative"></div>
-        <div id="ui" class="row bg-white position-relative">
+        <div id="ui" class="row bg-secondary position-relative py-2">
 
             <!-- ui slider -->
             <div class="col-4">
@@ -176,7 +180,7 @@
       </div>
 
 
-      <aside id="about" class="col-12 col-md-2 col-lg-3 text-dark py-2">
+      <aside id="about" class="col-12 col-md-3 col-lg-3 text-dark py-2">
         <h3 class="h4 text-dark">Filtering the Data</h3>
 
         <hr class="my-3">
@@ -186,43 +190,43 @@
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="Show All" value="locationType" checked="">
-              <p class="h6 text-dark">Show All</p>
+              <p class="p text-dark">Show All</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="College" value="locationType">
-              <p class="h6 text-primary">College</p>
+              <p id="blue">College</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="Military" value="locationType">
-              <p class="h6 text-dark">Military</p>
+              <p id="purple">Military</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="Religious" value="locationType">
-              <p class="h6 text-success">Religious</p>
+              <p id="green">Religious</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="School" value="locationType">
-              <p class="h6 text-dark">School</p>
+              <p id="yellow">School</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="Workplace" value="locationType">
-              <p class="h6 text-warning">Workplace</p>
+              <p id="orange">Workplace</p>
             </label>
           </div>
           <div class="form-check">
             <label class="form-check-label">
               <input type="radio" class="form-check-input" name="radio" id="Other" value="locationType">
-              <p class="h6 text-danger">Other</p>
+              <p id="red">Other</p>
             </label>
           </div>
         </div>
@@ -357,6 +361,12 @@
   <script>
     // JavaScript
 
+    document.getElementById("blue").style.color = "blue";
+    document.getElementById("purple").style.color = "purple";
+    document.getElementById("green").style.color = "green";
+    document.getElementById("yellow").style.color = "#DEE13C";
+    document.getElementById("orange").style.color = "orange";
+    document.getElementById("red").style.color = "red";
     // asynchronous calls to data files
     const statesJson = d3.json('data/us-states.json');
     const shootingsCSV = d3.csv('data/usMassShootings.csv');
@@ -458,7 +468,7 @@
 
       slideYear(locations);
 
-      update(locations);
+      update(locations, tooltip);
 
     } // end drawMap
 
@@ -485,7 +495,7 @@
       } // end changeTheme()
     } //end changeSymbology()
 
-    function update(locations) {
+    function update(locations, tooltip) {
 
       // For each checkbox:
       d3.selectAll(".form-check-input").on("change", function() { //select all the check boxes, when any of them is changed execute the functions

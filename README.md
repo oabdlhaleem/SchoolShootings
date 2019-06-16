@@ -1,12 +1,12 @@
-# SchoolShootings
+# US Mass Shootings
 
-A map of school shootings in the US since Columbine
+A map of mass shootings in the US since 1982
 
 **Data Topic:**  
-Generation Lockdown: School Shootings in the United States since Columbine 
+Generation Lockdown: Mass Shootings in the America since 1982 
 
 **Map Objectives:**  
-The objective of this map is to assist in telling a story of the rise of school shootings in the last generation of American history. 
+The objective of this map is to assist in telling a story of the rise of mass shootings in the last generation of American history. 
 
 **User Needs:**  
 Hakim is a community organizer. He wants to use the map as an educational tool to help teach people in his community more about the history of mass shootings. He’ll need to be able to control the passage of time to show the changing rates of school shootings over the years. He may also want to control the time of day to show at what times, if any, there are more shootings than others. He also wants to be able to filter by type of school and type of attack and weapons used to be able to look for patterns that can help explain the context of why and how attacks happen.
